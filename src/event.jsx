@@ -26,19 +26,41 @@ export default function Even(){
     }
 ]
 )
-const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState("");
   const [dateDebut, setDateDebut] = useState("");
   const [dateFin, setDateFin] = useState("");
   const [cout, setCout] = useState("");
   const [expert, setExpert] = useState("");
-function remplir(data){
-    SetexpertData([
-      setTheme(data.theme),
-      setDateDebut(data.dateDebut),
-      setDateFin(data.dateFin),
-      setCout(data.cout),
-      setExpert(data.expert)
-    ])
+  const [oévénements,Setoévénements] = useState({
+    thème: " ",
+                date_debut: "",
+                date_fin: "",
+                description: "",
+                cout_journalier: "",
+                durée: ""
+})
+function Input(e){
+  const val = e.target.value
+  const name = e.target.name
+  const _evenememt ={...oévénements}
+  _evenememt[name]=val
+}
+function _remplir(data){
+  Setoévénements({
+                thème:data.thème,
+                date_debut: data.date_debut,
+                date_fin: data.date_fin,
+                description: data.description,
+                cout_journalier:data.cout_journalier,
+                durée: data.duré
+})
+}
+function remplir(data) {
+  setTheme(data.thème);
+  setDateDebut(data.date_debut);
+  setDateFin(data.date_fin);
+  setCout(data.cout_journalier);
+  setExpert(data.nom_complet);
 }
 return (
 <div>
@@ -62,10 +84,10 @@ return (
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200 bg-white">
+            <tbody className="divide-y divide-gray-200 bg-white" >
               {item.événements.map(function (event) {
                 return (
-                  <tr
+                  <tr onClick={()=>_remplir(event)}
                     key={event.id}
                     className="transition duration-200 hover:bg-blue-50"
                   >
@@ -97,8 +119,8 @@ return (
           <label >Thème :</label>
           <input
             type="text"
-            value={theme}
-            onChange={(e) => setTheme(e.target.value)}
+            value={oévénements.thème}
+            onChange={(e) => Input(e)}
           />
         </div>
 
@@ -106,8 +128,8 @@ return (
           <label >Date de début :</label>
           <input
             type="date"
-            value={dateDebut}
-            onChange={(e) => setDateDebut(e.target.value)}
+            value={oévénements.date_debut}
+            onChange={(e) => Input(e)}
           />
         </div>
 
@@ -115,8 +137,8 @@ return (
           <label >Date de fin :</label>
           <input
             type="date"
-            value={dateFin}
-            onChange={(e) => setDateFin(e.target.value)}
+            value={oévénements.date_fin}
+            onChange={(e) => Input(e)}
           />
         </div>
 
@@ -124,8 +146,8 @@ return (
           <label >Coût :</label>
           <input
             type="number"
-            value={cout}
-            onChange={(e) => setCout(e.target.value)}
+            value={oévénements.cout_journalier}
+            onChange={(e) => Input(e)}
           />
         </div>
 
@@ -134,11 +156,11 @@ return (
           <input
             type="text"
             value={expert}
-            onChange={(e) => setExpert(e.target.value)}
+            onChange={(e) => expertsData.nom_complet}
           />
         </div>
 
-       <button onClick={()=>remplir(event)}>Confirmer</button>
+       <button >Confirmer</button>
       </form>
     </div>
   </div>
